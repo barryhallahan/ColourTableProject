@@ -1,21 +1,21 @@
-package org.example.colourtable;
+package org.example;
 
 import java.util.HashSet;
 import java.util.Set;
 
 /**
  * A representation of a ColourTable with a fixed palette size for storing RGB colors.
- *
+ * <p>
  * A constructor for a ColourTable object with a single parameter, specifying the number
  * of colours present in the palette
- *
+ * <p>
  * The number of colours in the palette MUST be a power of two, > 1 AND less than 1025
- *
+ * <p>
  * Creating a ColourTable object without the specification of a valid palette size will
- * throw an excpetion
- *
+ * throw an exception
+ * <p>
  * Method 'add' that enables a developer to ADD 24-bit RGB colour value to the palette
- *
+ * <p>
  * Exceeding the capacity of the ColourTable results in the throwing of an exception
  */
 public class ColourTable {
@@ -65,7 +65,7 @@ public class ColourTable {
 
         // ENSURE colour validity prior to entering the palette
         if (!valid24BitRGB(colour)) {
-            throw new IllegalArgumentException("Invalid 24-bit RGB value")
+            throw new IllegalArgumentException("Invalid 24-bit RGB value");
         }
 
         if (colors.contains(colour)) {
@@ -87,7 +87,7 @@ public class ColourTable {
     private boolean valid24BitRGB(int colour) {
 
         // CHECK is colour resides within 24-bit RGB range
-        return (colour >= 0 && colour <= 0xFFFFFF)
+        return (colour >= 0 && colour <= 0xFFFFFF);
     }
 
     /**
@@ -110,6 +110,7 @@ public class ColourTable {
         return (paletteSize > 1 && paletteSize < 1025 && (paletteSize & (paletteSize - 1)) == 0);
     }
 }
+
 
 
 
