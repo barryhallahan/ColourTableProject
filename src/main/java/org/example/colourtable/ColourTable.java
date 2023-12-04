@@ -5,10 +5,28 @@ import java.util.Set;
 
 /**
  * A representation of a ColourTable with a fixed palette size for storing RGB colors.
+ *
+ * A constructor for a ColourTable object with a single parameter, specifying the number
+ * of colours present in the palette
+ *
+ * The number of colours in the palette MUST be a power of two, > 1 AND less than 1025
+ *
+ * Creating a ColourTable object without the specification of a valid palette size will
+ * throw an excpetion
+ *
+ * Method 'add' that enables a developer to ADD 24-bit RGB colour value to the palette
+ *
+ * Exceeding the capacity of the ColourTable results in the throwing of an exception
  */
 public class ColourTable {
+
+    // ARRAY, storing palette of colours
     private final int[] palette;
+
+    // CURRENT storage size of the palette
     private int size;
+
+    // Set, tracking palette UNIQUE colours
     private final Set<Integer> colors;
 
     /**
@@ -19,6 +37,8 @@ public class ColourTable {
      * @throws IllegalArgumentException if the palette size is invalid.
      */
     public ColourTable(int paletteSize) {
+
+        // VALID palette size CHECK
         if (!isValidPaletteSize(paletteSize)) {
             throw new IllegalArgumentException("Invalid palette size");
         }
@@ -33,17 +53,41 @@ public class ColourTable {
      * @param colour The RGB color to add.
      *
      * @throws IllegalStateException if the ColourTable has reached its capacity.
+     *
+     * @throws IllegalArgumentException if the provided colour is not a valid 24-bit RGB value.
      */
     public void add(int colour) {
+
+        // EXCEED palette capacity CHECK
         if (size == palette.length) {
             throw new IllegalStateException("Exceeding capacity of the ColourTable");
         }
+
+        // ENSURE colour validity prior to entering the palette
+        if (!valid24BitRGB(colour)) {
+            throw new IllegalArgumentException("Invalid 24-bit RGB value")
+        }
+
         if (colors.contains(colour)) {
-            return; // Colour EXISTS in palette
+            // Colour EXISTS in palette
+            return;
         }
         palette[size] = colour;
         size++;
         colors.add(colour);
+    }
+
+    /**
+     * Checks if the provided integer ACTUALLY represents a valid 24-bit RGB colour value.
+     *
+     * @param colour The integer value awaiting validation
+     *
+     * @return True IF the provided value is VALID, else, FALSE
+     */
+    private boolean valid24BitRGB(int colour) {
+
+        // CHECK is colour resides within 24-bit RGB range
+        return (colour >= 0 && colour <= 0xFFFFFF)
     }
 
     /**
