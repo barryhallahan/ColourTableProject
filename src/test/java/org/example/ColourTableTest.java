@@ -60,6 +60,22 @@ public class ColourTableTest {
         // attempt to ADD ONE colour beyond the capacity -> throws EXCEPTION
         Assertions.assertThrows(IllegalStateException.class, () -> colourTable.add(0x0000FF));
     }
+
+    @Test
+    public void testValidRGBValue() {
+        ColourTable colourTable = new ColourTable(4);
+
+        colourTable.add(0xFF0000);
+
+        Assertions.assertEquals(1, colourTable.getSize());
+    }
+
+    @Test
+    public void testInvalidRGBValue() {
+        ColourTable colourTable = new ColourTable(4);
+
+        Assertions.assertThrows(IllegalArgumentException.class, () -> colourTable.add(0x7654321));
+    }
 }
 
 
