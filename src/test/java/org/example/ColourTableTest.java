@@ -100,6 +100,30 @@ public class ColourTableTest {
         // ADD INVALID RGB colour, THROW EXCEPTION -> IllegalArgumentException
         Assertions.assertThrows(IllegalArgumentException.class, () -> colourTable.add(0x7654321));
     }
+
+    /**
+     * tests the ADDITION of a negative value (INVALID)
+     */
+    @Test
+    public void testNegativeValue() {
+        // Palette size 4 -> VALID
+        ColourTable colourTable = new ColourTable(4);
+
+        // ADD INVALID RGB colour, THROW EXCEPTION -> IllegalArgumentException
+        Assertions.assertThrows(IllegalArgumentException.class, () -> colourTable.add(-1));
+    }
+
+    /**
+     * tests the ADDITION of a NULL value (INVALID)
+     */
+    @Test
+    public void testNullValue() {
+        // Palette size 4 -> VALID
+        ColourTable colourTable = new ColourTable(4);
+
+        // ADD INVALID RGB colour, THROW EXCEPTION -> IllegalArgumentException
+        Assertions.assertThrows(IllegalArgumentException.class, () -> colourTable.add(0));
+    }
 }
 
 
