@@ -57,6 +57,9 @@ public class ColourTable {
      * @throws IllegalArgumentException if the provided colour is not a valid 24-bit RGB value.
      */
     public void add(int colour) {
+        if (colour == 0) {
+            throw new IllegalArgumentException("Null value provided");
+        }
 
         // EXCEED palette capacity CHECK
         if (size == palette.length) {
